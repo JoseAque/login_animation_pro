@@ -9,7 +9,17 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool obscurePassword = true; // Estado para mostrar/ocultar
+  //Cerebro de la lógica de animaciones
+  StateMachineController? controller;
+  //State Machine Input
+  SMIBool? isChecking; //Activa la animacion
+  SMIBool? isHandsUp; //Ojos tapados
+  SMITrigger? trigSuccess; //Exito
+  SMITrigger? trigFail; //Fallo
+  SMINumber? numLook; //Mover ojos
+
+  // Estado para mostrar/ocultar contraseña
+  bool obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +40,44 @@ class _LoginScreenState extends State<LoginScreen> {
                 // Ancho de la pantalla por Media Q
                 width: size.width,
                 height: 200,
-                child: const RiveAnimation.asset(
+                child: RiveAnimation.asset(
                   'animated_login_character.riv',
+                  stateMachines: ["Login Machine"],
+                  //Configuracion Inicial
+                  onInit: (artboard) {
+                    controller = StateMachineController.fromArtboard(
+                      artboard,
+                      "Login Machine",
+                    );
+                    //Verifica si hay un controlador
+                    if (controller == null) return;
+                    //Enalazar animaciones con la APP
+                    artboard.addController(controller!);
+                    isChecking = controller!.findSMI('isChecking');
+                    isHandsUp = controller!.findSMI('isHandsUp');
+                    trigSuccess = controller!.findSMI('trigSuccess');
+                    trigFail = controller!.findSMI('isChectrigFailking');
+                    numLook = controller!.findSMI('numLook');
+                  },
                 ),
               ),
               const SizedBox(height: 10),
               TextField(
+                onChanged: (value) {
+                  if (isHandsUp != null) {
+                    //No subir las manos al escribir email
+                    isHandsUp!.change(false);
+                  }
+                  //Verifica que este SMI no sea nulo
+                  if (isChecking == null) return;
+                  isChecking!.change(true);
+
+                  // Actualiza numLook con la longitud del texto
+                  if (numLook == null) return;
+                  numLook!.change(
+                    value.length.toDouble() * 1.5,
+                  ); // x 1.5 para alinear
+                },
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   hintText: "Email",
@@ -47,6 +89,15 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 10),
               TextField(
+                onChanged: (value) {
+                  if (isChecking != null) {
+                    //No mover los ojos al escribir
+                    isChecking!.change(false);
+                  }
+                  //Verifica que este SMI no sea nulo
+                  if (isHandsUp == null) return;
+                  isHandsUp!.change(true);
+                },
                 obscureText: obscurePassword,
                 decoration: InputDecoration(
                   hintText: "Password",
@@ -72,10 +123,59 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 10),
               SizedBox(
                 width: size.width,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        "Forgot your password?",
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          color: Colors.black,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Botón de login
+              const SizedBox(height: 10),
+              MaterialButton(
+                minWidth: size.width,
+                height: 50,
+                color: Colors.blueAccent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                onPressed: () {},
                 child: const Text(
-                  "Forgot your password?",
-                  textAlign: TextAlign.right,
-                  style: TextStyle(decoration: TextDecoration.underline),
+                  "Login",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                width: size.width,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Don't have an account?"),
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        "Register",
+                        style: TextStyle(
+                          color: Colors.black,
+                          //Negritas
+                          fontWeight: FontWeight.bold,
+                          //Subrayado
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
