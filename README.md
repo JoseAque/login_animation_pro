@@ -9,8 +9,8 @@ This project showcases an **animated login screen** using Flutter with **Rive** 
 The character **Teddy** reacts to user actions:  
 - 👀 Follows the **username** text field with its eyes.  
 - 🙈 Covers its eyes when typing the **password**.  
-- 😲 Shows surprise if the password is incorrect. *(Under construction)* ⚠️  
-- 😄 Shows happiness if the password is correct. *(Under construction)* ⚠️  
+- 😲 Shows surprise if the password is incorrect. 
+- 😄 Shows happiness if the password is correct. 
 
 > Note: This project **does not include character creation or Rive animation design**, but demonstrates integration of an existing example and implementation of interactive logic.  
 > You can find and download the animation used from Rive: [Login Machine Rive](https://rive.app/marketplace/3645-7621-remix-of-login-machine/)  
