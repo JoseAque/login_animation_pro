@@ -230,6 +230,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    "Demo credentials:\nalumno@merida.tecnm.mx\n12345",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.grey,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
                 ],
               ),
             ),

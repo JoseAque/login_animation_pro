@@ -12,12 +12,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Login Animation',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        scaffoldBackgroundColor: const Color(0xFFF5F5F5),
       ),
-      home: const LoginScreen(),
+      home: Scaffold(
+        body: Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 420, maxHeight: 900),
+            child: const LoginScreen(),
+          ),
+        ),
+      ),
     );
   }
 }
