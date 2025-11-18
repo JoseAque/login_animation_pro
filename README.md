@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/f8687ebd-81f5-4fd5-9e4c-5b3ebd9578df/deploy-status)](https://app.netlify.com/projects/flutter-login-animation/deploys)
+
 ![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)
 
 # 🐻 Teddy Login Animation Pro - Flutter + Rive
