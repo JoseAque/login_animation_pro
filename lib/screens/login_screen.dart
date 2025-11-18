@@ -119,8 +119,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       debounce = Timer(const Duration(seconds: 1), () {
                         if (isChecking != null) isChecking!.change(false);
                       });
-                      if (numLook != null)
+                      if (numLook != null) {
                         numLook!.change(value.length.toDouble() * 1.5);
+                      }
                     },
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
